@@ -5,7 +5,7 @@
 #include "Image.hpp"
 
 namespace prog {
-    Image* loadFromXPM2(const std::string &file);
+    Image* loadFromXPM2(const std::string &filename);
 
     void saveToXPM2(const std::string& file, const Image* img);
 }

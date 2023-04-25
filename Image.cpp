@@ -19,7 +19,7 @@ namespace prog
     for(int i = 0; i<this->height_; i++){
       delete[] this->data_[i];
     }
-    
+
   } 
   int Image::width() const
   {
@@ -43,3 +43,4 @@ namespace prog
     return data_[y][x];
   }
 }
+

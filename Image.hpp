@@ -1,6 +1,7 @@
 #ifndef __prog_Image_hpp__
 #define __prog_Image_hpp__
 #include "Color.hpp"
+#include <utility>
 
 namespace prog
 {

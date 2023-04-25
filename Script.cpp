@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "Script.hpp"
 #include "PNG.hpp"
 #include "XPM2.hpp"
@@ -250,13 +251,22 @@ namespace prog {
         image = img;
     }
     void Script::rotate_right() {
-        // Rotate image right by 90 degrees.
+        if (!image) {
+            return; // handle null image input
+        }
         int w = image->width();
         int h = image->height();
+        if (w <= 0 || h <= 0) {
+            return; // handle non-positive width/height input
+        }
         Image* img = new Image(h, w, Color(0,0,0));
         for (int i = 0; i < h; i++){
-            for (int j = 0; j<w ; j++){
-                img->at(i,w-j-1) = image->at(j,i);
+            for (int j = 0; j < w; j++){
+                int linear_idx = i * w + j;
+                if (linear_idx >= w * h) {
+                    continue; // handle out-of-bounds access
+                }
+                img->at(i, w - j - 1) = image->at(j, i);
             }
         }
         delete image;
@@ -266,31 +276,63 @@ namespace prog {
         //The general idea to replace each pixel (x, y) by “a median pixel” of neighboring pixels to (x,y) inside a window size of size ws * ws, where ws >= 3 is always an odd number (3, 5, 7, …). For a generic description of the median filter algorithm, you may check the Wikipedia page for the algorithm.
         int ws;
         input >> ws;
+        if (!image || ws < 3 || ws % 2 == 0) {
+            return; // handle null image input or invalid window size
+        }
+
         int w = image->width();
         int h = image->height();
-        Image* img = new Image(w, h, Color(0,0,0));
-        for (int i = 0; i < h; i++){
-            for (int j = 0; j<w ; j++){
-                int r = 0;
-                int g = 0;
-                int b = 0;
-                int count = 0;
-                for (int k = i-ws/2; k <= i+ws/2; k++){
-                    for (int l = j-ws/2; l <= j+ws/2; l++){
-                        if ((k >= 0) && (k < h) && (l >= 0) && (l < w)){
-                            Color c = image->at(l,k);
-                            r += c.red();
-                            g += c.green();
-                            b += c.blue();
-                            count++;
-                        }
+
+        Image* img = new Image(w, h, Color(0, 0, 0));
+
+        int half_ws = ws / 2;
+
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                std::vector<int> reds, greens, blues;
+
+                for (int ny = std::max(0, y - half_ws); ny <= std::min(h - 1, y + half_ws); ny++) {
+                    for (int nx = std::max(0, x - half_ws); nx <= std::min(w - 1, x + half_ws); nx++) {
+                        Color c = image->at(nx, ny);
+                        reds.push_back(c.red());
+                        greens.push_back(c.green());
+                        blues.push_back(c.blue());
                     }
                 }
-                Color c(r/count, g/count, b/count);
-                img->at(j,i) = c;
+
+                std::sort(reds.begin(), reds.end());
+                std::sort(greens.begin(), greens.end());
+                std::sort(blues.begin(), blues.end());
+                size_t median_idx = reds.size() / 2;
+                int median_r = (reds.size() % 2 == 0) ? (reds[median_idx - 1] + reds[median_idx]) / 2 : reds[median_idx];
+                median_idx = greens.size() / 2;
+                int median_g = (greens.size() % 2 == 0) ? (greens[median_idx - 1] + greens[median_idx]) / 2 : greens[median_idx];
+                median_idx = blues.size() / 2;
+                int median_b = (blues.size() % 2 == 0) ? (blues[median_idx - 1] + blues[median_idx]) / 2 : blues[median_idx];
+
+                img->at(x, y) = Color(median_r, median_g, median_b);
             }
         }
+
         delete image;
         image = img;
     }
+    void Script::xpm2_open() {
+        string filename;
+        input >> filename;
+        if (!image) {
+            delete image;
+        }
+        image = loadFromXPM2(filename);
+    }
+
+    void Script::xpm2_save() {
+        string filename;
+        input >> filename;
+        if (!image) {
+            return;
+        }
+        saveToXPM2(filename, image);
+    }
+
 }

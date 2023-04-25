@@ -48,6 +48,10 @@ namespace prog {
                 save();
                 continue;
             } 
+            if (command == "width") {
+                // TODO ...
+                continue;
+            }
             // TODO ...
 
         }

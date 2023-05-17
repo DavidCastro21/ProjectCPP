@@ -125,8 +125,6 @@ Executing command 'add' ...
 Executing command 'add' ...
 Executing command 'add' ...
 Executing command 'save' ...
-Images differ at pixel (0, 0)
-0 1 13 vs 1 4 16
 >>>> [20] extra4 <<<<
 Executing command 'blank' ...
 Executing command 'fill' ...
@@ -235,8 +233,6 @@ Executing command 'save' ...
 Executing command 'open' ...
 Executing command 'rotate_left' ...
 Executing command 'save' ...
-Images differ at pixel (30, 32)
-255 3 3 vs 255 255 255
 >>>> [42] rotate_left2 <<<<
 Executing command 'open' ...
 Executing command 'rotate_left' ...
@@ -248,8 +244,6 @@ Executing command 'rotate_left' ...
 Executing command 'rotate_left' ...
 Executing command 'rotate_left' ...
 Executing command 'save' ...
-Images differ at pixel (344, 5)
-0 0 0 vs 255 0 0
 >>>> [44] rotate_left_rotate_right1 <<<<
 Executing command 'open' ...
 Executing command 'rotate_left' ...
@@ -261,14 +255,10 @@ Executing command 'rotate_left' ...
 Executing command 'rotate_right' ...
 Executing command 'rotate_right' ...
 Executing command 'save' ...
-Images differ at pixel (0, 0)
-254 254 254 vs 255 255 255
 >>>> [46] rotate_right1 <<<<
 Executing command 'open' ...
 Executing command 'rotate_right' ...
 Executing command 'save' ...
-Images differ at pixel (30, 32)
-255 255 255 vs 255 3 3
 >>>> [47] rotate_right2 <<<<
 Executing command 'open' ...
 Executing command 'rotate_right' ...
@@ -315,221 +305,74 @@ Executing command 'v_mirror' ...
 Executing command 'save' ...
 >>>> [57] xpm2_open1 <<<<
 Executing command 'xpm2_open' ...
-Executing command 'input/blarg.xpm' ...
+     
+ÿ ÿ ÿ
 Executing command 'save' ...
-PNG.cpp:31:24: runtime error: member call on null pointer of type 'prog::Image'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior PNG.cpp:31:24 in 
-Image.cpp:28:14: runtime error: member call on null pointer of type 'const prog::Image *'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Image.cpp:28:14 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==78684==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000004 (pc 0x000102bbe7c4 bp 0x00016d26dab0 sp 0x00016d26da80 T0)
-==78684==The signal is caused by a READ memory access.
-==78684==Hint: address points to the zero page.
-    #0 0x102bbe7c4 in prog::Image::height() const Image.cpp:30
-    #1 0x102c0e43c in prog::saveToPNG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, prog::Image const*) PNG.cpp:31
-    #2 0x102bc33f4 in prog::Script::save() Script.cpp:140
-    #3 0x102bc098c in prog::Script::run() Script.cpp:58
-    #4 0x102bbb734 in prog::TestDriver::test_script(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:43
-    #5 0x102ba0130 in prog::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:79
-    #6 0x102b93004 in prog::TestDriver::test_scripts(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:165
-    #7 0x102b9122c in main test.cpp:186
-    #8 0x1809dff24  (<unknown module>)
-
-==78684==Register values:
- x[0] = 0x000000016d26d998   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x00000001048003c0  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000000000000000   x[9] = 0x0000000000000004  x[10] = 0x0000000000092220  x[11] = 0x0000000000000048  
-x[12] = 0x0000000102e44000  x[13] = 0xffffff0000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
-x[16] = 0x00000003053560b4  x[17] = 0x00000001031740a0  x[18] = 0x0000000000000000  x[19] = 0x000000016d26db00  
-x[20] = 0x0000000102d50000  x[21] = 0x0000000102d51910  x[22] = 0x000000016d26f320  x[23] = 0x0000000180a5a366  
-x[24] = 0x000000016d26f2a0  x[25] = 0x0000000000000001  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d26dab0     lr = 0x0000000102bbe760     sp = 0x000000016d26da80  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV Image.cpp:30 in prog::Image::height() const
-==78684==ABORTING
 >>>> [58] xpm2_open2 <<<<
 Executing command 'xpm2_open' ...
-Executing command 'input/squares.xpm' ...
+ÿ    
+  ÿ  
+    ÿ
+  ÿ ÿ
+ÿ ÿ ÿ
 Executing command 'save' ...
-PNG.cpp:31:24: runtime error: member call on null pointer of type 'prog::Image'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior PNG.cpp:31:24 in 
-Image.cpp:28:14: runtime error: member call on null pointer of type 'const prog::Image *'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Image.cpp:28:14 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==78688==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000004 (pc 0x000102bbe7c4 bp 0x00016d26dab0 sp 0x00016d26da80 T0)
-==78688==The signal is caused by a READ memory access.
-==78688==Hint: address points to the zero page.
-    #0 0x102bbe7c4 in prog::Image::height() const Image.cpp:30
-    #1 0x102c0e43c in prog::saveToPNG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, prog::Image const*) PNG.cpp:31
-    #2 0x102bc33f4 in prog::Script::save() Script.cpp:140
-    #3 0x102bc098c in prog::Script::run() Script.cpp:58
-    #4 0x102bbb734 in prog::TestDriver::test_script(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:43
-    #5 0x102ba0130 in prog::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:79
-    #6 0x102b93004 in prog::TestDriver::test_scripts(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:165
-    #7 0x102b9122c in main test.cpp:186
-    #8 0x1809dff24  (<unknown module>)
-
-==78688==Register values:
- x[0] = 0x000000016d26d998   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x00000001048003c0  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000000000000000   x[9] = 0x0000000000000004  x[10] = 0x0000000000092220  x[11] = 0x0000000000000048  
-x[12] = 0x0000000102e44000  x[13] = 0xffffff0000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
-x[16] = 0x00000003053560b4  x[17] = 0x00000001031740a0  x[18] = 0x0000000000000000  x[19] = 0x000000016d26db00  
-x[20] = 0x0000000102d50000  x[21] = 0x0000000102d51910  x[22] = 0x000000016d26f320  x[23] = 0x0000000180a5a366  
-x[24] = 0x000000016d26f2a0  x[25] = 0x0000000000000001  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d26dab0     lr = 0x0000000102bbe760     sp = 0x000000016d26da80  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV Image.cpp:30 in prog::Image::height() const
-==78688==ABORTING
 >>>> [59] xpm2_open3 <<<<
 Executing command 'xpm2_open' ...
-Executing command 'input/tetris.xpm' ...
+     
+ÿ    
+ÿ È  
+ÿ ÿ  
+    ÿ
+ÿ ¯ ¯
+ÿ ÿ ÿ
 Executing command 'save' ...
-PNG.cpp:31:24: runtime error: member call on null pointer of type 'prog::Image'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior PNG.cpp:31:24 in 
-Image.cpp:28:14: runtime error: member call on null pointer of type 'const prog::Image *'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Image.cpp:28:14 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==78691==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000004 (pc 0x000102bbe7c4 bp 0x00016d26dab0 sp 0x00016d26da80 T0)
-==78691==The signal is caused by a READ memory access.
-==78691==Hint: address points to the zero page.
-    #0 0x102bbe7c4 in prog::Image::height() const Image.cpp:30
-    #1 0x102c0e43c in prog::saveToPNG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, prog::Image const*) PNG.cpp:31
-    #2 0x102bc33f4 in prog::Script::save() Script.cpp:140
-    #3 0x102bc098c in prog::Script::run() Script.cpp:58
-    #4 0x102bbb734 in prog::TestDriver::test_script(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:43
-    #5 0x102ba0130 in prog::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:79
-    #6 0x102b93004 in prog::TestDriver::test_scripts(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:165
-    #7 0x102b9122c in main test.cpp:186
-    #8 0x1809dff24  (<unknown module>)
-
-==78691==Register values:
- x[0] = 0x000000016d26d998   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x00000001048003c0  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000000000000000   x[9] = 0x0000000000000004  x[10] = 0x0000000000092220  x[11] = 0x0000000000000048  
-x[12] = 0x0000000102e44000  x[13] = 0xffffff0000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
-x[16] = 0x00000003053560b4  x[17] = 0x00000001031740a0  x[18] = 0x0000000000000000  x[19] = 0x000000016d26db00  
-x[20] = 0x0000000102d50000  x[21] = 0x0000000102d51910  x[22] = 0x000000016d26f320  x[23] = 0x0000000180a5a366  
-x[24] = 0x000000016d26f2a0  x[25] = 0x0000000000000001  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d26dab0     lr = 0x0000000102bbe760     sp = 0x000000016d26da80  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV Image.cpp:30 in prog::Image::height() const
-==78691==ABORTING
 >>>> [60] xpm2_open4 <<<<
 Executing command 'xpm2_open' ...
-Executing command 'input/mondrian.xpm' ...
+€ € €
+ÿ  
+ÿ Ô J
+ O „
+ÿ ÿ ÿ
 Executing command 'save' ...
-PNG.cpp:31:24: runtime error: member call on null pointer of type 'prog::Image'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior PNG.cpp:31:24 in 
-Image.cpp:28:14: runtime error: member call on null pointer of type 'const prog::Image *'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Image.cpp:28:14 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==78694==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000004 (pc 0x000102bbe7c4 bp 0x00016d26dab0 sp 0x00016d26da80 T0)
-==78694==The signal is caused by a READ memory access.
-==78694==Hint: address points to the zero page.
-    #0 0x102bbe7c4 in prog::Image::height() const Image.cpp:30
-    #1 0x102c0e43c in prog::saveToPNG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, prog::Image const*) PNG.cpp:31
-    #2 0x102bc33f4 in prog::Script::save() Script.cpp:140
-    #3 0x102bc098c in prog::Script::run() Script.cpp:58
-    #4 0x102bbb734 in prog::TestDriver::test_script(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:43
-    #5 0x102ba0130 in prog::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:79
-    #6 0x102b93004 in prog::TestDriver::test_scripts(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:165
-    #7 0x102b9122c in main test.cpp:186
-    #8 0x1809dff24  (<unknown module>)
-
-==78694==Register values:
- x[0] = 0x000000016d26d998   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x00000001048003c0  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000000000000000   x[9] = 0x0000000000000004  x[10] = 0x0000000000092220  x[11] = 0x0000000000000048  
-x[12] = 0x0000000102e44000  x[13] = 0xffffff0000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
-x[16] = 0x00000003053560b4  x[17] = 0x00000001031740a0  x[18] = 0x0000000000000000  x[19] = 0x000000016d26db00  
-x[20] = 0x0000000102d50000  x[21] = 0x0000000102d51910  x[22] = 0x000000016d26f320  x[23] = 0x0000000180a5a366  
-x[24] = 0x000000016d26f2a0  x[25] = 0x0000000000000001  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d26dab0     lr = 0x0000000102bbe760     sp = 0x000000016d26da80  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV Image.cpp:30 in prog::Image::height() const
-==78694==ABORTING
 >>>> [61] xpm2_open5 <<<<
 Executing command 'xpm2_open' ...
-Executing command 'input/lion.xpm' ...
+     
+„ T 3
+œ ‚ k
+å ² 
+ÿ Ì 
+ë € €
+ò Ì ™
+ÿ å ²
+ÿ ÿ ÿ
 Executing command 'save' ...
-PNG.cpp:31:24: runtime error: member call on null pointer of type 'prog::Image'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior PNG.cpp:31:24 in 
-Image.cpp:28:14: runtime error: member call on null pointer of type 'const prog::Image *'
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Image.cpp:28:14 in 
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==78697==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000004 (pc 0x000102bbe7c4 bp 0x00016d26dab0 sp 0x00016d26da80 T0)
-==78697==The signal is caused by a READ memory access.
-==78697==Hint: address points to the zero page.
-    #0 0x102bbe7c4 in prog::Image::height() const Image.cpp:30
-    #1 0x102c0e43c in prog::saveToPNG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, prog::Image const*) PNG.cpp:31
-    #2 0x102bc33f4 in prog::Script::save() Script.cpp:140
-    #3 0x102bc098c in prog::Script::run() Script.cpp:58
-    #4 0x102bbb734 in prog::TestDriver::test_script(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:43
-    #5 0x102ba0130 in prog::TestDriver::run_test(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:79
-    #6 0x102b93004 in prog::TestDriver::test_scripts(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&) test.cpp:165
-    #7 0x102b9122c in main test.cpp:186
-    #8 0x1809dff24  (<unknown module>)
-
-==78697==Register values:
- x[0] = 0x000000016d26d998   x[1] = 0x0000000000000000   x[2] = 0x0000000000000000   x[3] = 0x00000001048003c0  
- x[4] = 0x0000000063000000   x[5] = 0x0000000000000000   x[6] = 0x0000000000000000   x[7] = 0x0000000000000000  
- x[8] = 0x0000000000000000   x[9] = 0x0000000000000004  x[10] = 0x0000000000092220  x[11] = 0x0000000000000048  
-x[12] = 0x0000000102e44000  x[13] = 0xffffff0000000000  x[14] = 0x0000000000000000  x[15] = 0x0000000000000000  
-x[16] = 0x00000003053560b4  x[17] = 0x00000001031740a0  x[18] = 0x0000000000000000  x[19] = 0x000000016d26db00  
-x[20] = 0x0000000102d50000  x[21] = 0x0000000102d51910  x[22] = 0x000000016d26f320  x[23] = 0x0000000180a5a366  
-x[24] = 0x000000016d26f2a0  x[25] = 0x0000000000000001  x[26] = 0x0000000000000000  x[27] = 0x0000000000000000  
-x[28] = 0x0000000000000000     fp = 0x000000016d26dab0     lr = 0x0000000102bbe760     sp = 0x000000016d26da80  
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV Image.cpp:30 in prog::Image::height() const
-==78697==ABORTING
 >>>> [62] xpm2_save1 <<<<
 Executing command 'open' ...
 Executing command 'xpm2_save' ...
-Executing command 'output/xpm2_save1.xpm' ...
 Executing command 'blank' ...
 Executing command 'xpm2_open' ...
-Executing command 'output/xpm2_save1.xpm' ...
-Executing command 'save' ...
-Images have different dimensions: 16x7 != 1x1
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stoi: no conversion
 >>>> [63] xpm2_save2 <<<<
 Executing command 'open' ...
 Executing command 'xpm2_save' ...
-Executing command 'output/xpm2_save2.xpm' ...
 Executing command 'blank' ...
 Executing command 'xpm2_open' ...
-Executing command 'output/xpm2_save2.xpm' ...
-Executing command 'save' ...
-Images have different dimensions: 150x150 != 1x1
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stoi: no conversion
 >>>> [64] xpm2_save3 <<<<
 Executing command 'open' ...
 Executing command 'xpm2_save' ...
-Executing command 'output/xpm2_save3.xpm' ...
 Executing command 'blank' ...
 Executing command 'xpm2_open' ...
-Executing command 'output/xpm2_save3.xpm' ...
-Executing command 'save' ...
-Images have different dimensions: 300x300 != 1x1
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stoi: no conversion
 >>>> [65] xpm2_save4 <<<<
 Executing command 'open' ...
 Executing command 'xpm2_save' ...
-Executing command 'output/xpm2_save4.xpm' ...
 Executing command 'blank' ...
 Executing command 'xpm2_open' ...
-Executing command 'output/xpm2_save4.xpm' ...
-Executing command 'save' ...
-Images have different dimensions: 270x480 != 1x1
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stoi: no conversion
 >>>> [66] xpm2_save5 <<<<
 Executing command 'open' ...
 Executing command 'xpm2_save' ...
-Executing command 'output/xpm2_save5.xpm' ...
 Executing command 'blank' ...
 Executing command 'xpm2_open' ...
-Executing command 'output/xpm2_save5.xpm' ...
-Executing command 'save' ...
-Images have different dimensions: 250x380 != 1x1
+libc++abi: terminating due to uncaught exception of type std::invalid_argument: stoi: no conversion

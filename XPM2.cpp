@@ -1,9 +1,14 @@
 #include "XPM2.hpp"
 #include "Image.hpp"
+#include "Color.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <map>
+#include <string>
+#include <algorithm>
+#include <cstdlib>
+
 #include <vector>
 #include <iomanip>
 
@@ -15,68 +20,69 @@ namespace prog {
     }
 
     
-    Image* loadFromXPM2(const std::string& filename) {
-        std :: ifstream file(filename);
-        if (!file.is_open()) {
-            return nullptr;
-        }
-        std::string line;
-        getline(file, line);
-        if (line != "/* XPM2 */") {
-            return nullptr;
-        }
-        getline(file, line);
-        std::stringstream ss(line);
+    Image* loadFromXPM2(const std::string& file) {
+        std::ifstream filename(file);
+        std::string _;
+        filename >> _ >> _;
         int width, height, colors, chars_per_pixel;
-        ss >> width >> height >> colors >> chars_per_pixel;
-        if (chars_per_pixel != 1) {
-            return nullptr;
-        }
+        filename >> width >> height >> colors >> chars_per_pixel;
+        Image *image = new Image(width, height);
         std::map<std::string, Color> color_map;
-        std::vector<std::vector<Color>> image_data;
+        std::string key, color;
         for (int i = 0; i < colors; ++i) {
-            getline(file, line);
-            std::stringstream ss(line);
-            char c;
-            rgb_value r, g, b;
-            ss >> c >> r >> g >> b;
-            color_map[color_to_string({r, g, b})] = {r, g, b};
+            rgb_value red, green, blue;
+            filename >> key >> _ >> color;
+            red = std::stoi(color.substr(1, 2), nullptr, 16);
+            green = std::stoi(color.substr(3, 2), nullptr, 16);
+            blue = std::stoi(color.substr(5, 2), nullptr, 16);
+            std :: cout << red << " " << green << " " << blue << std::endl;
+            Color c(red, green, blue);
+            color_map[key] = c;
         }
-        for (int y = 0; y < height; ++y) {
-            getline(file, line);
-            std::vector<Color> row;
-            for (int x = 0; x < width; ++x) {
-                std::string color;
-                color += line[x];
-                color += line[x];
-                color += line[x];
-                row.push_back(color_map[color]);
+        int y = 0;
+        std::string line;
+        while(filename >> line){
+            for (int x = 0; x < width; x+=chars_per_pixel) {
+                image->at(x, y) = color_map[line.substr(x, chars_per_pixel)];
             }
-            image_data.push_back(row);
-        }
-        Image* image = new Image(width, height);
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                image->at(x, y) = image_data[y][x];
-            }
+            y++;
         }
         return image;
     }
 
     void saveToXPM2(const std::string& file, const Image* image) {
+        /*
         std::ofstream out(file);
         if (!out.is_open()) {
             return;
         }
-        out << "/* XPM2 */" << std::endl;
-        out << image->width() << " " << image->height() << " 1 1" << std::endl;
-        out << "c 0 0 0" << std::endl;
-        out << "0" << std::endl;
+        int height = image->height();
+        int width = image->width();
+        std:: string _ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        auto it = _.begin();
+        std::map<Color, char> color_map;
+        std::map<char, Color> color_map2;
+        int color_count = 0;
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width ; ++x) {
+                Color color = image->at(x, y);
+                color_map[color] = *it;
+                color_map2[*it] = color;
+                color_count++;
+            }
+        }
+        auto it2 = color_map.begin();
+        out << "! XPM2" << std::endl;
+        out << image->width() << " " << image->height() << " "<< color_count <<" 1" << std::endl;
+        for(int i = 0; i < color_count; i++){
+            out << it2->second << " c " << color_to_string(it2->first) << std::endl;
+        }
         for (int y = 0; y < image->height(); ++y) {
             for (int x = 0; x < image->width(); ++x) {
-                out << "0";
+                out << color_map[image->at(x, y)];
             }
             out << std::endl;
         }
+        */
     }
 }

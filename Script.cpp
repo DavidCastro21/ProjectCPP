@@ -113,6 +113,16 @@ namespace prog
                 median_filter();
                 continue;
             }
+            if (command == "xpm2_open")
+            {
+                xpm2_open();
+                continue;
+            }
+            if (command == "xpm2_save")
+            {
+                xpm2_save();
+                continue;
+            }
         }
     }
     void Script::open()
@@ -295,12 +305,13 @@ namespace prog
         {
             for (int j = 0; j < h; j++)
             {
-                img->at(h - j - 1, i) = newImage->at(i, j);
+                img->at(j, w - i - 1) = newImage->at(i, j);
             }
         }
         delete image;
         image = img;
     }
+
     void Script::rotate_right()
     {
         Image *newImage = image;
@@ -320,71 +331,77 @@ namespace prog
             for (int j = 0; j < h; j++)
             {
                 Color c = newImage->at(i, j);
-                img->at(j, w - i - 1) = c;
+                img->at(h - j - 1, i) = c;
             }
         }
         delete image;
         image = img;
     }
-
+//median_filter com melhoria de eficiencia
     void Script::median_filter()
+{
+    int ws;
+    input >> ws;
+    if (!image || ws < 3 || ws % 2 == 0)
     {
-
-        // The general idea to replace each pixel (x, y) by “a median pixel” of neighboring pixels to (x,y) inside a window size of size ws * ws, where ws >= 3 is always an odd number (3, 5, 7, …). For a generic description of the median filter algorithm, you may check the Wikipedia page for the algorithm.
-        int ws;
-        input >> ws;
-        if (!image || ws < 3 || ws % 2 == 0)
-        {
-            return; // handle null image input or invalid window size
-        }
-
-        int w = image->width();
-        int h = image->height();
-
-        Image *img = new Image(w, h, Color(0, 0, 0));
-
-        int half_ws = ws / 2;
-
-        for (int y = 0; y < h; y++)
-        {
-            for (int x = 0; x < w; x++)
-            {
-                std::vector<int> reds, greens, blues;
-
-                for (int ny = std::max(0, y - half_ws); ny <= std::min(h - 1, y + half_ws); ny++)
-                {
-                    for (int nx = std::max(0, x - half_ws); nx <= std::min(w - 1, x + half_ws); nx++)
-                    {
-                        Color c = image->at(nx, ny);
-                        reds.push_back(c.red());
-                        greens.push_back(c.green());
-                        blues.push_back(c.blue());
-                    }
-                }
-
-                std::sort(reds.begin(), reds.end());
-                std::sort(greens.begin(), greens.end());
-                std::sort(blues.begin(), blues.end());
-                size_t median_idx = reds.size() / 2;
-                int median_r = (reds.size() % 2 == 0) ? (reds[median_idx - 1] + reds[median_idx]) / 2 : reds[median_idx];
-                median_idx = greens.size() / 2;
-                int median_g = (greens.size() % 2 == 0) ? (greens[median_idx - 1] + greens[median_idx]) / 2 : greens[median_idx];
-                median_idx = blues.size() / 2;
-                int median_b = (blues.size() % 2 == 0) ? (blues[median_idx - 1] + blues[median_idx]) / 2 : blues[median_idx];
-
-                img->at(x, y) = Color(median_r, median_g, median_b);
-            }
-        }
-
-        delete image;
-        image = img;
+        return; 
     }
+
+    int w = image->width();
+    int h = image->height();
+
+    Image *img = new Image(w, h, Color(0, 0, 0));
+
+    int half_ws = ws / 2;
+
+    std::vector<int> reds, greens, blues;
+    reds.reserve((2*half_ws+1)*(2*half_ws+1));
+    greens.reserve((2*half_ws+1)*(2*half_ws+1));
+    blues.reserve((2*half_ws+1)*(2*half_ws+1));
+
+    for (int y = 0; y < h; y++)
+    {
+        for (int x = 0; x < w; x++)
+        {
+            reds.clear();
+            greens.clear();
+            blues.clear();
+
+            for (int ny = std::max(0, y - half_ws); ny <= std::min(h - 1, y + half_ws); ny++)
+            {
+                for (int nx = std::max(0, x - half_ws); nx <= std::min(w - 1, x + half_ws); nx++)
+                {
+                    Color c = image->at(nx, ny);
+                    reds.push_back(c.red());
+                    greens.push_back(c.green());
+                    blues.push_back(c.blue());
+                }
+            }
+
+            std::sort(reds.begin(), reds.end());
+            std::sort(greens.begin(), greens.end());
+            std::sort(blues.begin(), blues.end());
+            size_t median_idx = reds.size() / 2;
+            int median_r = (reds.size() % 2 == 0) ? (reds[median_idx - 1] + reds[median_idx]) / 2 : reds[median_idx];
+            median_idx = greens.size() / 2;
+            int median_g = (greens.size() % 2 == 0) ? (greens[median_idx - 1] + greens[median_idx]) / 2 : greens[median_idx];
+            median_idx = blues.size() / 2;
+            int median_b = (blues.size() % 2 == 0) ? (blues[median_idx - 1] + blues[median_idx]) / 2 : blues[median_idx];
+
+            img->at(x, y) = Color(median_r, median_g, median_b);
+        }
+    }
+
+    delete image;
+    image = img;
+}
+
 
     void Script::xpm2_open()
     {
         string filename;
         input >> filename;
-        if (!image)
+        if (image)
         {
             delete image;
         }
